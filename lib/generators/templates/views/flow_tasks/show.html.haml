@@ -1,0 +1,64 @@
+%h1
+  = "#{@flow_task.type.underscore.humanize} #{@flow_task.id}"
+
+%table.stacked.simple
+  %tr
+    %th Created by
+    %td
+      - if current_user.id == @flow_task.user_id
+        you
+      - else
+        = safe_email(@flow_task.user.try(:email))
+  %tr
+    %th Created at
+    %td= @flow_task.created_at
+  %tr
+    %th Started at
+    %td= @flow_task.started_at
+  %tr
+    %th Finished at
+    %td= @flow_task.finished_at
+  - unless @flow_task.options.blank?
+    %tr
+      %th Options
+      %td
+        %pre
+          = @flow_task.options.inspect
+  - unless @flow_task.command.blank?
+    %tr
+      %th Command
+      %td= @flow_task.command
+  - unless @flow_task.error.blank?
+    %tr
+      %th Error
+      %td.error.status
+        = @flow_task.error
+  %tr
+    %th Inputs
+    %td
+      %ul
+        - for input in @flow_task.inputs
+          %li
+            - if input.resource
+              = link_to "#{input.resource_type}: #{input.resource.to_param}", input.resource
+            - else
+              = link_to input.file_file_name, input.file.url
+  %tr
+    %th Outputs
+    %td
+      %ul
+        - for output in @flow_task.outputs
+          %li
+            - if output.resource
+              = link_to "#{output.resource_type}: #{output.resource.to_param}", input.resource
+            - else
+              = link_to output.file_file_name, output.file.url
+  - unless @flow_task.redirect_url.blank?
+    %th Redirect URL
+    %td
+      = link_to flow_task_redirect_url(@flow_task), flow_task_redirect_url(@flow_task)
+
+- if permitted_to? :edit, @flow_task.becomes(FlowTask)
+  .actions.stacked
+    = link_to "Run again", run_flow_task_path(@flow_task), :class => "button"
+    = link_to "Delete", flow_task_path(@flow_task), :method => :delete, :confirm => "Are you sure you want to delete this?", :class => "delete button ui-priority-secondary"
