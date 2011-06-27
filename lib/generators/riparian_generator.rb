@@ -6,7 +6,7 @@ class RiparianGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
   
   class_option "skip-controller", :type => :boolean, :desc => "Don't generate a controller for managing flow tasks."
-  class_option "skip-views", :type => :boolean, :desc => "Don't create basic views for managing flow tasks."
+  class_option "skip-views", :type => :boolean, :desc => "Don't create basic haml views for managing flow tasks."
   
   def self.source_root
      @source_root ||= File.join(File.dirname(__FILE__), 'templates')
