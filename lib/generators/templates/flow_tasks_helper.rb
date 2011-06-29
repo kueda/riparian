@@ -1,30 +1,17 @@
 module FlowTasksHelper
-  # Encapsulates common pattern for actions that start a bg task get called 
-  # repeatedly to check progress
-  # Key is required, and a block that assigns a new Delayed::Job to @job
-  def delayed_progress(key)
-    @tries = params[:tries].to_i
-    if @tries > 20
-      @status = @error
-      @error_msg = "This is taking forever.  Please try again later."
-      return
-    end
-    @job_id = Rails.cache.read(key)
-    @job = Delayed::Job.find_by_id(@job_id)
-    if @job_id
-      if @job && @job.failed_at
-        @status = "error"
-        @error_msg = @job.last_error
-      elsif @job
-        @status = "working"
+  
+  def flow_task_redirect_url(flow_task)
+    return flow_task_url(flow_task) if flow_task.redirect_url.blank?
+    url = flow_task.redirect_url
+    if url =~ /^\// || url =~ /^http/
+      url += if url =~ /\?/
+        "&flow_task_id=#{flow_task.id}"
       else
-        @status = "done"
-        Rails.cache.delete(key)
+        "?flow_task_id=#{flow_task.id}"
       end
     else
-      @status = "start"
-      yield
-      Rails.cache.write(key, @job.id)
+      send(url, :flow_tas_id => flow_task.id)
     end
   end
+  
 end

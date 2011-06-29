@@ -1,5 +1,5 @@
 class FlowTask < ActiveRecord::Base
-  belongs_to :user, :inverse_of => :flow_tasks
+  belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
   has_many :inputs, :class_name => "FlowTaskInput", :dependent => :destroy, :inverse_of => :flow_task
