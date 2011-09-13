@@ -6,7 +6,9 @@ require 'ostruct'
 module Riparian
   DEFAULT_CONFIG = {
     :flow_task_resource_file_path => ":rails_root/public/system/:class/:id/:filename", 
-    :flow_task_resource_file_url => "/system/:class/:id/:filename"
+    :flow_task_resource_file_url => "/system/:class/:id/:filename",
+    :flow_task_resource_file_size_greater_than => 1, # 1 byte
+    :flow_task_resource_file_size_less_than => 10485760 # 10 megabytes
   }
   
   def self.config
@@ -21,7 +23,11 @@ module Riparian
     config.before_configuration do
       path = ::Rails.root.join('config/riparian.yml')
       if ::Rails.root.join('config/riparian.yml').exist?
-        Riparian.config = OpenStruct.new(YAML.load(open(path)).symbolize_keys)
+        Riparian.config = OpenStruct.new(
+          DEFAULT_CONFIG.merge(
+            YAML.load(open(path)).symbolize_keys
+          )
+        )
       end
     end
     

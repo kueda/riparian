@@ -5,4 +5,6 @@ Example:
     rails generate riparian
 
     This will create:
+        app/controlers/flow_tasks_controller.rb
+        app/helpers/flow_tasks_helper.rb
         db/migrate/XXX_create_riparian.rb

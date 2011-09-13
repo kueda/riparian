@@ -22,6 +22,7 @@ class CreateRiparian < ActiveRecord::Migration
       t.string :file_content_type
       t.integer :file_file_size
       t.datetime :file_updated_at
+      t.string :extra
       t.timestamps
     end
     add_index :flow_task_resources, [:flow_task_id, :type]

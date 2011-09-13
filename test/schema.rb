@@ -10,6 +10,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.string   "extra"
   end
   
   create_table "flow_tasks", :force => true do |t|

@@ -4,5 +4,7 @@ class FlowTaskResource < ActiveRecord::Base
   has_attached_file :file,
     :path => Riparian.config.flow_task_resource_file_path,
     :url => Riparian.config.flow_task_resource_file_url
-  validates_attachment_size :file, :greater_than => 1.byte
+  validates_attachment_size :file, 
+    :greater_than => Riparian.config.flow_task_resource_file_size_greater_than,
+    :less_than => Riparian.config.flow_task_resource_file_size_less_than
 end

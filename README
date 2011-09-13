@@ -16,9 +16,17 @@ riparian.yml file to your config folder with the following settings:
   flow_task_resource_file_path: paperclip/interpolation/string
   flow_task_resource_file_url: paperclip/interpolation/string
 
+Similarly you can set the max and min file sizes in bytes for file 
+attachments:
+
+  flow_task_resource_file_size_greater_than: 1 # Default: 1 byte
+  flow_task_resource_file_size_less_than: 1024 # Default: 10 megabytes
+
 
 Example
 =======
+
+rails generate riparian # generates controller, helper, and migration
 
 class MyTask < FlowTask
   def run
@@ -32,6 +40,8 @@ class MyTask < FlowTask
     end
   end
 end
+
+Start POSTing stuff to /flow_tasks!
 
 
 Copyright (c) 2011 University of California, Berkeley, released under the MIT 
