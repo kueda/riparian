@@ -7,4 +7,5 @@ class FlowTaskResource < ActiveRecord::Base
   validates_attachment_size :file, 
     :greater_than => Riparian.config.flow_task_resource_file_size_greater_than,
     :less_than => Riparian.config.flow_task_resource_file_size_less_than
+  serialize :extra
 end

@@ -3,6 +3,8 @@ ENV['RAILS_ENV'] = 'test'
 require 'rubygems'
 require 'test/unit'
 require 'rails/all'
+require 'paperclip/railtie'
+Paperclip::Railtie.insert
 require 'active_support/dependencies'
 require 'riparian'
 

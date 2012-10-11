@@ -4,21 +4,23 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{riparian}
-  s.version = "0.3.0"
+  s.name = "riparian"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Ken-ichi Ueda}]
-  s.date = %q{2011-08-02}
-  s.description = %q{Basically just a handful of models to make handling workflows and asynchronous server-side tasks a little easier.}
-  s.email = %q{kenichi.ueda@gmail.com}
+  s.authors = ["Ken-ichi Ueda"]
+  s.date = "2012-10-11"
+  s.description = "Basically just a handful of models to make handling workflows and asynchronous server-side tasks a little easier."
+  s.email = "kenichi.ueda@gmail.com"
   s.extra_rdoc_files = [
-    "README"
+    "README",
+    "README.markdown"
   ]
   s.files = [
     "Gemfile",
     "MIT-LICENSE",
     "README",
+    "README.markdown",
     "Rakefile",
     "VERSION",
     "init.rb",
@@ -39,17 +41,18 @@ Gem::Specification.new do |s|
     "lib/riparian.rb",
     "riparian.gemspec",
     "test/database.yml",
+    "test/flow_task_resource_test.rb",
     "test/flow_task_test.rb",
     "test/riparian_test.rb",
     "test/schema.rb",
     "test/test_helper.rb",
     "uninstall.rb"
   ]
-  s.homepage = %q{http://github.com/kueda/riparian}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{DelayedJob-based workflow system.}
+  s.homepage = "http://github.com/kueda/riparian"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.24"
+  s.summary = "DelayedJob-based workflow system."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -60,18 +63,16 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<rdoc>, [">= 0"])
       s.add_runtime_dependency(%q<delayed_job>, [">= 0"])
       s.add_runtime_dependency(%q<paperclip>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.2"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<rails>, ["> 3.0.0"])
       s.add_dependency(%q<activesupport>, ["> 3.0.0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<delayed_job>, [">= 0"])
       s.add_dependency(%q<paperclip>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<rails>, ["> 3.0.0"])
@@ -79,9 +80,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<delayed_job>, [">= 0"])
     s.add_dependency(%q<paperclip>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
 
