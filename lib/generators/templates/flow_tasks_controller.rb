@@ -6,6 +6,10 @@ class FlowTasksController < ApplicationController
   end
   
   def show
+    respond_to do |format|
+      format.html
+      format.json { render :json => @flow_task.as_json(:include => [:inputs, :outputs]) }
+    end
   end
   
   def new
@@ -18,17 +22,40 @@ class FlowTasksController < ApplicationController
     klass = class_name.camelize.constantize rescue FlowTask
     @flow_task = klass.new(params[class_name])
     @flow_task.user = current_user
-    if @flow_task.save
-      flash[:notice] = "Flow task created"
-      redirect_to run_flow_task_path(@flow_task)
-    else
-      render :new
+    respond_to do |format|
+      if @flow_task.save
+        format.html do
+          redirect_to run_flow_task_path(@flow_task)
+        end
+        format.json { render :json => @flow_task }
+      else
+        msg = "Failed to save task: " + @flow_task.errors.full_messages.to_sentence
+        format.html do
+          flash[:error] = msg
+          redirect_back_or_default('/')
+        end
+        format.json do
+          render :json => {:error => msg}, :status => :unprocessable_entity
+        end
+      end
     end
   end
   
   def run
     delayed_progress(request.path) do
       @job = Delayed::Job.enqueue(@flow_task)
+    end
+    respond_to do |format|
+      format.html
+      format.json do
+        status = case @status
+        when "done" then :success
+        when "error" then :unprocessable_entity
+        else
+          202
+        end
+        render :json => @flow_task.as_json(:include => [:inputs, :outputs]), :status => status
+      end
     end
   end
   

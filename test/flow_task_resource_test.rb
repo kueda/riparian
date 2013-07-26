@@ -8,7 +8,6 @@ class FlowTaskResourceTest < ActiveSupport::TestCase
     ft.inputs.build(:extra => "foo")
     ft.save
     ft.reload
-    puts "ft.inputs.first.extra: #{ft.inputs.first.extra}"
     assert_equal "foo", ft.inputs.first.extra
   end
 
@@ -17,7 +16,12 @@ class FlowTaskResourceTest < ActiveSupport::TestCase
     ft.inputs.build(:extra => ["foo"])
     ft.save
     ft.reload
-    puts "ft.inputs.first.extra: #{ft.inputs.first.extra}"
     assert_equal "foo", ft.inputs.first.extra.first
+  end
+
+  def test_file_url
+    ft = FlowTask.new
+    ftr = ft.outputs.build
+    assert_blank ftr.file_url
   end
 end

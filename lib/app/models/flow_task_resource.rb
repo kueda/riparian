@@ -8,4 +8,8 @@ class FlowTaskResource < ActiveRecord::Base
     :greater_than => Riparian.config.flow_task_resource_file_size_greater_than,
     :less_than => Riparian.config.flow_task_resource_file_size_less_than
   serialize :extra
+
+  def file_url
+    file.present? ? file.url : nil
+  end
 end
